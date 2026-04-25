@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* Smooth transitions for every button and hover state */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom Scrollbar for your Match Activity sidebar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #10b981; /* emerald-500 */
+  border-radius: 10px;
+}
+
+body {
+  @apply antialiased text-emerald-950;
+  background-color: #ecfdf5; /* emerald-50 */
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@keyframes bounceIn {
+  0% { transform: translateY(100%); opacity: 0; }
+  60% { transform: translateY(-10%); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
