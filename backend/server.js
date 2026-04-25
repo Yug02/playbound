@@ -1,6 +1,15 @@
 // backend/server.js
 const express = require('express');
 const cors = require('cors');
+
+// Update your CORS configuration to look like this:
+app.use(cors({
+    origin: [
+        'http://localhost:5173', 
+        'https://playbound.vercel.app' // Make sure there is NO trailing slash (/) at the end!
+    ],
+    credentials: true
+}));
 const connectDB = require('./config/db');
 require('dotenv').config();
 
