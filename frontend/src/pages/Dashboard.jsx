@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import RequestModal from '../components/RequestModal';
 import Toast from '../components/Toast';
-import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [players, setPlayers] = useState([]);
   const [requests, setRequests] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -20,6 +21,11 @@ const Dashboard = () => {
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
   };
 
   const fetchData = async () => {
@@ -60,11 +66,6 @@ const Dashboard = () => {
     } catch (err) { 
       showToast("Failed to update status", "error"); 
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = '/login';
   };
 
   return (
@@ -240,7 +241,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* --- THE FIX IS RIGHT HERE --- */}
+        {/* Modal & Toast rendering */}
         {selectedPlayer && (
           <RequestModal 
             player={selectedPlayer} 
@@ -250,8 +251,8 @@ const Dashboard = () => {
               if (status === 'sent') {
                 fetchData(); 
                 showToast("Invite Sent!", "success"); 
-              } else {
-                showToast("Invite Not Sent", "error"); 
+              } else if (status === 'cancelled') {
+                // Do not show the toast if they just clicked cancel
               }
             }} 
           />
